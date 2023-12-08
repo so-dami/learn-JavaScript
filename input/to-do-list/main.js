@@ -20,38 +20,50 @@ console.log('to do list page');
 
 // jQuery ver.
 // $('#test').append(temp);
+let i = 0;
+let todoList = [];
+let newTodo = '';
 
 let todoTxt = document.querySelector('#input-txt');
 let plusBtn = document.querySelector('.plus-btn');
-let todoList = ['목살 굽기', '집안일(설거지 빨래)'];
-let newTxt = '';
+let ul = document.querySelector('.list-wrap > ul');
+let li = `
+  <li class="list-item flex">
+    <div class="chk-box">
+      <input type="checkbox" name="chk${i}" id="chk${i}" value="${todoList[i]}" />
+      <label class="chk-label" for="chk${i}">${todoList[i]}</label>
+    </div>
+    <div class="del-box">
+      <button class="del-btn" type="button">
+        <div></div>
+      </button>
+    </div>
+  </li>
+`;
 
 // plus button - 할 일 추가
-plusBtn.addEventListener('click', function () {
-  newTxt = todoTxt.value;
-  console.log(newTxt);
-});
+plusBtn.addEventListener('click', function () {});
 
 // HTML에 li 추가
-for (let i = 0; i < todoList.length; i++) {
-  console.log(todoList.length);
-  let ul = document.querySelector('.list-wrap > ul');
-  let li = `
-    <li class="list-item flex">
-      <div class="chk-box">
-        <input type="checkbox" name="chk${i}" id="chk${i}" value="${todoList[i]}" />
-        <label class="chk-label" for="chk${i}">${todoList[i]}</label>
-      </div>
-      <div class="del-box">
-        <button class="del-btn" type="button">
-          <div></div>
-        </button>
-      </div>
-    </li>
-  `;
+// for (let i = 0; i < todoList.length; i++) {
+//   console.log(todoList.length);
+//   let ul = document.querySelector('.list-wrap > ul');
+//   let li = `
+//     <li class="list-item flex">
+//       <div class="chk-box">
+//         <input type="checkbox" name="chk${i}" id="chk${i}" value="${todoList[i]}" />
+//         <label class="chk-label" for="chk${i}">${todoList[i]}</label>
+//       </div>
+//       <div class="del-box">
+//         <button class="del-btn" type="button">
+//           <div></div>
+//         </button>
+//       </div>
+//     </li>
+//   `;
 
-  ul.innerHTML += li;
-}
+//   ul.innerHTML += li;
+// }
 
 let delBtn = document.querySelectorAll('.del-btn');
 let modal = document.querySelector('.black-bg');
