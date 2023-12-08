@@ -24,15 +24,13 @@ console.log('to do list page');
 let todoTxt = document.querySelector('#input-txt');
 let plusBtn = document.querySelector('.plus-btn');
 let todoList = ['목살 굽기', '집안일(설거지 빨래)'];
+let newTxt = '';
 
 // plus button - 할 일 추가
 plusBtn.addEventListener('click', function () {
-  todoList.push(todoTxt.value);
-  console.log(todoList);
-  todoTxt.value = '';
+  newTxt = todoTxt.value;
+  console.log(newTxt);
 });
-
-console.log(todoList);
 
 // HTML에 li 추가
 for (let i = 0; i < todoList.length; i++) {
