@@ -49,6 +49,7 @@
     Object.freeze(person);
 
     // 4. 변수의 Hoisting 현상: 변수의 선언을 변수 범위 맨 위로 끌고 오는 현상
+    // 함수 선언도 Hoisting 현상이 일어남
     /* 
       1. 아직 변수 선언을 안 했는데 먼저 출력하면?
         - error: 변수 '변수명' is not defined
@@ -84,5 +85,17 @@
     window.이름 = '소';
     console.log(이름);
     console.log(window.이름);
+
+    // 연습
+    if (true) {
+      let a = 1;
+      var b = 2;
+
+      if (true) {
+        let b = 3;
+      }
+      
+      console.log(b);
+    }
   </script>
 </html>
