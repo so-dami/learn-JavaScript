@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>This</title>
+  </head>
+  <body>
+    <button id="button">click</button>
+  </body>
+  <script>
+    // 'use strict';
+
+    // this1 - 그냥 쓰거나 일반 함수 안에서 쓰면 {window}
+    // strict mode: <script> 최상단에 'use strict' 사용하면 엄격하게 실행됨
+    console.log('this1:', this);
+
+    function 함수() {
+      // this2 - strict mode + 일반 함수 안에서 쓰면 undefined
+      console.log('this1 or strict mode this2:', this);
+    }
+
+    함수();
+
+    // this3 - 메소드(object) 안에 있는 함수 안에서 쓰면 그 함수를 가지고 있는 메소드(object)를 뜻함
+    var obj = {
+      data: 'kim',
+      함수: function () {
+        console.log(this);
+      },
+    };
+
+    console.log(obj.data);
+    console.log(obj.함수());
+
+    var quiz = {
+      data: {
+        함수: function () {
+          console.log(this);
+        },
+      },
+    };
+
+    console.log(quiz.data.함수());
+
+    // this4 - 오브젝트 생성 기계: 기계 안에서 쓰면 새로 생성되는 오브젝트를 뜻함(instance)
+    function 기계() {
+      this.이름 = 'dami';
+    }
+
+    var 오브젝트 = new 기계();
+    console.log('this4:', 오브젝트);
+
+    // this5 - eventListener 안에서는 e.currentTarget과 같은 의미
+    document.getElementById('button').addEventListener('click', function (e) {
+      console.log('this5:', this);
+      console.log('e.currentTarget:', e.currentTarget);
+
+      // Case study1 - {window}
+      var 어레이 = [1, 2, 3];
+      어레이.forEach(function (a) {
+        console.log('this1:', this);
+      });
+    });
+
+    // Case study2 - {window}
+    var 이름들1 = {
+      name: ['김', '이', '박', '최'],
+      함수: function () {
+        console.log('this3:', this);
+        이름들1.name.forEach(function (a) {
+          console.log('this1:', this);
+        });
+      },
+    };
+
+    이름들1.함수();
+
+    // Case study3
+    // arrow function 특징: 내부 this값을 변화시키지 않음
+    // 외부 this값을 그대로 사용함
+    // 상위의 this값과 같은 값을 사용
+    var 이름들2 = {
+      name: ['김', '이', '박', '최'],
+      함수: function () {
+        console.log('this3:', this);
+        이름들2.name.forEach(()=>{
+          console.log('this3:', this);
+        });
+      },
+    };
+
+    이름들2.함수();
+  </script>
+</html>

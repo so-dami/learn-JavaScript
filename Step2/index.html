@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+  </head>
+
+  <body>
+    <span id="hello">안녕</span>
+    <button id="button">click</button>
+  </body>
+
+  <!-- JS -->
+  <script>
+    document.getElementById('button').addEventListener('click', function () {
+      change('Hello');
+    });
+
+    // 자료 잠깐 저장하기 - 변수 만들기
+    var name = 'so';
+    var age = 30;
+
+    // 코드 축약 - 함수 만들기
+    function change(txt) {
+      document.getElementById('hello').innerHTML = txt;
+    }
+
+    // array, object
+    var arr = ['dami', 30];
+    var obj = { name: 'dami', age: 30 };
+    console.log('name:', arr[0], '\nage:', arr[1]);
+    console.log('name:', obj['name'], '\nage:', obj.age);
+
+    // 반복되는 코드를 줄이고 싶을 때 - 반복문
+    for (var i = 0; i < 3; i++) {
+      console.log('안녕', i);
+    }
+
+    [1, 2, 3, 4].forEach(function (a, i) {
+      console.log('forEach a:', a, '\nforEach i:', i);
+    });
+  </script>
+</html>
