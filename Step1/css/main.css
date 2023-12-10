@@ -38,3 +38,8 @@
   /* display: block; */
   height: 206px;
 }
+
+.main-bg {
+  padding: 100px 20px;
+  background-color: lightgrey;
+}
