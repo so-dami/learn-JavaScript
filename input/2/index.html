@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Index</title>
+    <style>
+      .bg {
+        border: 1px solid #000;
+        width: 60%;
+        margin: 0 auto;
+        padding: 30px;
+        display: none;
+      }
+
+      .show{
+        display: block;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blank"></div>
+
+    <div class="bg show">
+      <div>
+        <form action="">
+          <h3 class="center">공급자</h3>
+          <p>등록번호</p>
+          <input type="text" id="number" />
+          <p>상호명(회사명)</p>
+          <input type="text" id="name" />
+          <p>공급가</p>
+          <input type="text" id="price" />
+          <p>부가세</p>
+          <input type="text" id="vat" />
+          <p>합계</p>
+          <input type="text" id="total" />
+          <div class="center flex">
+            <div>이 금액을</div>
+            <div>
+              <div>
+                <input type="checkbox" id="charge" name="charge" />
+                <label for="charge">청구</label>
+              </div>
+              <div>
+                <input type="checkbox" id="receipt" name="charge" />
+                <label for="receipt">영수</label>
+              </div>
+            </div>
+            <div>함</div>
+          </div>
+          <button id="submit-btn" type="submit">확인</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="bg">
+      <div>
+        <h3 class="center">세금계산서</h3>
+        <div>
+          <span>등록번호:</span>
+          <span class="number-val"></span>
+        </div>
+        <div>
+          <span>상호명(회사명):</span>
+          <span class="name-val"></span>
+        </div>
+        <div>
+          <span>공급가:</span>
+          <span class="price-val"></span>
+        </div>
+        <div>
+          <span>부가세:</span>
+          <span class="vat-val"></span>
+        </div>
+        <div>
+          <span>합계:</span>
+          <span class="total-val"></span>
+        </div>
+        <div class="center">
+          <div>
+            <span>이 금액을</span>
+            <span class="charge-val"></span>
+            <span>함</span>
+          </div>
+          <div class="today"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>
