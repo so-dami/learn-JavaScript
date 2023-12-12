@@ -28,6 +28,7 @@ let todoList = ['목살 굽기', '집안일(설거지 빨래)'];
 // plus button - 할 일 추가
 plusBtn.addEventListener('click', function () {
   todoList.push(todoTxt.value);
+  console.log(todoList);
   todoTxt.value = '';
 });
 
