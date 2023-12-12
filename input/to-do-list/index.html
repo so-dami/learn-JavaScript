@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TO DO LIST</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./main.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <!-- modal -->
+      <div class="black-bg">
+        <div class="white-bg">
+          <p>지울까용?</p>
+          <div class="btn-box">
+            <button type="button" class="btn-style" id="yes-btn">네</button>
+            <button type="button" class="btn-style" id="no-btn">아니오</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div id="test"></div> -->
+      <div class="main-bg">
+        <div class="todo-wrap">
+          <div class="input-wrap">
+            <h1>TO DO LIST</h1>
+            <div class="input-box flex">
+              <div>
+                <input id="input-txt" type="text" placeholder="오늘의 할 일은?" />
+              </div>
+              <div class="plus-box">
+                <button class="plus-btn" type="button">＋</button>
+              </div>
+            </div>
+          </div>
+          <div class="list-wrap">
+            <ul></ul>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
