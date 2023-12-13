@@ -39,7 +39,13 @@ plusBtn.addEventListener('click', function () {
   if (todoTxt.value == '') {
     blankChk.classList.add('show-modal');
 
+    // 닫기 버튼 누를 때 - 모달창 닫기
     closeBtn.addEventListener('click', function () {
+      blankChk.classList.remove('show-modal');
+    });
+
+    // 검정 배경 누를 때 - 모달창 닫기
+    blankChk.addEventListener('click', function () {
       blankChk.classList.remove('show-modal');
     });
   }
@@ -67,20 +73,28 @@ plusBtn.addEventListener('click', function () {
     todoTxt.value = '';
 
     let delBtn = document.querySelectorAll('.del-btn');
+    li = document.querySelectorAll('.list-item');
 
     // delete button
     // 삭제 여부 물어보기
-    for (let i = 0; i < delBtn.length; i++) {
-      delBtn[i].addEventListener('click', function () {
+    delBtn.forEach((a, i) => {
+      a.addEventListener('click', function () {
         delChk.classList.add('show-modal');
+
+        // 아니오 - 모달창 닫기
+        noBtn.addEventListener('click', function () {
+          delChk.classList.remove('show-modal');
+        });
+
+        // 네 - 할 일 삭제
+        yesBtn.addEventListener('click', function (e) {
+          delChk.classList.remove('show-modal');
+
+          setTimeout(() => {
+            li[i].remove();
+          }, 300);
+        });
       });
-    }
-
-    // 아니오 - 모달창 닫기
-    noBtn.addEventListener('click', function () {
-      delChk.classList.remove('show-modal');
     });
-
-    // 네 - 할 일 삭제
   }
 });
