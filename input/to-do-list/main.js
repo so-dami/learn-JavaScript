@@ -21,66 +21,66 @@ console.log('to do list page');
 // jQuery ver.
 // $('#test').append(temp);
 let i = 0;
-let todoList = [];
 let newTodo = '';
 
 let todoTxt = document.querySelector('#input-txt');
 let plusBtn = document.querySelector('.plus-btn');
 let ul = document.querySelector('.list-wrap > ul');
-let li = `
-  <li class="list-item flex">
-    <div class="chk-box">
-      <input type="checkbox" name="chk${i}" id="chk${i}" value="${todoList[i]}" />
-      <label class="chk-label" for="chk${i}">${todoList[i]}</label>
-    </div>
-    <div class="del-box">
-      <button class="del-btn" type="button">
-        <div></div>
-      </button>
-    </div>
-  </li>
-`;
 
-// plus button - 할 일 추가
-plusBtn.addEventListener('click', function () {});
-
-// HTML에 li 추가
-// for (let i = 0; i < todoList.length; i++) {
-//   console.log(todoList.length);
-//   let ul = document.querySelector('.list-wrap > ul');
-//   let li = `
-//     <li class="list-item flex">
-//       <div class="chk-box">
-//         <input type="checkbox" name="chk${i}" id="chk${i}" value="${todoList[i]}" />
-//         <label class="chk-label" for="chk${i}">${todoList[i]}</label>
-//       </div>
-//       <div class="del-box">
-//         <button class="del-btn" type="button">
-//           <div></div>
-//         </button>
-//       </div>
-//     </li>
-//   `;
-
-//   ul.innerHTML += li;
-// }
-
-let delBtn = document.querySelectorAll('.del-btn');
-let modal = document.querySelector('.black-bg');
+let blankChk = document.querySelector('#blank-chk');
+let delChk = document.querySelector('#del-chk');
+let closeBtn = document.querySelector('#close-btn');
 let yesBtn = document.querySelector('#yes-btn');
 let noBtn = document.querySelector('#no-btn');
 
-// delete button
-// 삭제 여부 물어보기
-for (let i = 0; i < delBtn.length; i++) {
-  delBtn[i].addEventListener('click', function () {
-    modal.classList.add('show-modal');
-  });
-}
+// plus button - 할 일 추가
+plusBtn.addEventListener('click', function () {
+  // 공백 체크 - input 공백일 떄
+  if (todoTxt.value == '') {
+    blankChk.classList.add('show-modal');
 
-// 아니오 - 모달창 닫기
-noBtn.addEventListener('click', function () {
-  modal.classList.remove('show-modal');
+    closeBtn.addEventListener('click', function () {
+      blankChk.classList.remove('show-modal');
+    });
+  }
+
+  // 공백 체크 - input 공백 아닐 때
+  else {
+    i++;
+    newTodo = todoTxt.value;
+
+    let li = `
+    <li class="list-item flex">
+      <div class="chk-box">
+        <input type="checkbox" name="chk${i}" id="chk${i}" value="${newTodo}" />
+        <label class="chk-label" for="chk${i}">${newTodo}</label>
+      </div>
+      <div class="del-box">
+        <button class="del-btn" type="button">
+          <div></div>
+        </button>
+      </div>
+    </li>
+  `;
+
+    ul.innerHTML += li;
+    todoTxt.value = '';
+
+    let delBtn = document.querySelectorAll('.del-btn');
+
+    // delete button
+    // 삭제 여부 물어보기
+    for (let i = 0; i < delBtn.length; i++) {
+      delBtn[i].addEventListener('click', function () {
+        delChk.classList.add('show-modal');
+      });
+    }
+
+    // 아니오 - 모달창 닫기
+    noBtn.addEventListener('click', function () {
+      delChk.classList.remove('show-modal');
+    });
+
+    // 네 - 할 일 삭제
+  }
 });
-
-// 네 - 할 일 삭제

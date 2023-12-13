@@ -6,9 +6,6 @@ input[type='checkbox'] {
   padding: 0;
 }
 
-input[type='checkbox'] {
-}
-
 /* 가로스크롤 생김 방지 */
 html,
 body {
@@ -68,7 +65,7 @@ input[type='checkbox']:checked + label {
 }
 
 .btn-box {
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .btn-style {
@@ -76,6 +73,10 @@ input[type='checkbox']:checked + label {
   height: 30px;
   border: none;
   border-radius: 5px;
+}
+
+#close-btn {
+  background-color: lightgray;
 }
 
 #yes-btn {
@@ -97,7 +98,7 @@ input[type='checkbox']:checked + label {
 /* 모바일 CSS */
 @media screen and (max-width: 767px) {
   .todo-wrap {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     padding-top: 150px;
   }
@@ -117,7 +118,7 @@ input[type='checkbox']:checked + label {
   }
 
   #input-txt {
-    width: 210px;
+    width: 68vw;
     height: 40px;
     padding: 10px;
     font-size: 15px;
