@@ -66,6 +66,8 @@ let closeBtn = document.querySelector('#close-btn');
 let yesBtn = document.querySelector('#yes-btn');
 let noBtn = document.querySelector('#no-btn');
 
+let todoLocal = [];
+
 // plus button - 할 일 추가
 plusBtn.addEventListener('click', function () {
   // 공백 체크 - input 공백일 떄
@@ -85,6 +87,18 @@ plusBtn.addEventListener('click', function () {
 
   // 공백 체크 - input 공백 아닐 때
   else {
+    // localStorage 추가
+    // if (localStorage.getItem('todo') == null) {
+    //   todoLocal.push(todoTxt.value);
+    //   let localSet = JSON.stringify(todoLocal);
+    //   localStorage.setItem('todo', localSet);
+    // } else {
+    //   let localGet = JSON.parse(localStorage.getItem('todo'));
+    //   localGet.push(todoTxt.value);
+    //   localStorage.setItem('todo', JSON.stringify(localGet));
+    // }
+
+    // li 추가
     i++;
     newTodo = todoTxt.value;
 
