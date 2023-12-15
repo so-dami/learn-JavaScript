@@ -61,12 +61,28 @@ let plusBtn = document.querySelector('.plus-btn');
 let ul = document.querySelector('.list-wrap > ul');
 
 let blankChk = document.querySelector('#blank-chk');
-let delChk = document.querySelector('#del-chk');
 let closeBtn = document.querySelector('#close-btn');
-let yesBtn = document.querySelector('#yes-btn');
-let noBtn = document.querySelector('#no-btn');
 
-let todoLocal = [];
+// 새로고침 후에도 데이터 유지 시키기
+if (localStorage.getItem('todo') !== null) {
+  let todoGet = JSON.parse(localStorage.getItem('todo'));
+  for (let i = 0; i < todoGet.length; i++) {
+    let hcode = `
+      <li class="list-item flex">
+        <div class="chk-box">
+          <input type="checkbox" name="${todoGet[i]['num']}" id="${todoGet[i]['num']}" value="${todoGet[i]['txt']}" />
+          <label class="chk-label" for="${todoGet[i]['num']}">${todoGet[i]['txt']}</label>
+        </div>
+        <div class="del-box">
+          <button class="del-btn" type="button">
+            <div></div>
+          </button>
+        </div>
+      </li>
+    `;
+    ul.innerHTML += hcode;
+  }
+}
 
 // plus button - 할 일 추가
 plusBtn.addEventListener('click', function () {
@@ -87,17 +103,6 @@ plusBtn.addEventListener('click', function () {
 
   // 공백 체크 - input 공백 아닐 때
   else {
-    // localStorage 추가
-    // if (localStorage.getItem('todo') == null) {
-    //   todoLocal.push(todoTxt.value);
-    //   let localSet = JSON.stringify(todoLocal);
-    //   localStorage.setItem('todo', localSet);
-    // } else {
-    //   let localGet = JSON.parse(localStorage.getItem('todo'));
-    //   localGet.push(todoTxt.value);
-    //   localStorage.setItem('todo', JSON.stringify(localGet));
-    // }
-
     // li 추가
     i++;
     newTodo = todoTxt.value;
@@ -119,8 +124,26 @@ plusBtn.addEventListener('click', function () {
     ul.innerHTML += li;
     todoTxt.value = '';
 
+    let todoLocal = [];
+
+    // localStorage 추가
+    if (localStorage.getItem('todo') == null) {
+      console.log(i);
+      todoLocal.push({ txt: `${newTodo}`, num: `${i}` });
+      let localSet = JSON.stringify(todoLocal);
+      localStorage.setItem('todo', localSet);
+    } else {
+      let localGet = JSON.parse(localStorage.getItem('todo'));
+
+      localGet.push({ txt: `${newTodo}`, num: `${i}` });
+      localStorage.setItem('todo', JSON.stringify(localGet));
+    }
+
+    let delChk = document.querySelector('#del-chk');
+    let yesBtn = document.querySelector('#yes-btn');
+    let noBtn = document.querySelector('#no-btn');
     let delBtn = document.querySelectorAll('.del-btn');
-    li = document.querySelectorAll('.list-item');
+    let delLi = document.querySelectorAll('.list-item');
 
     // delete button
     // 삭제 여부 물어보기
@@ -136,12 +159,16 @@ plusBtn.addEventListener('click', function () {
         // 네 - 할 일 삭제
         yesBtn.addEventListener('click', function (e) {
           delChk.classList.remove('show-modal');
+          console.log(i);
 
           setTimeout(() => {
-            li[i].remove();
+            delLi[i].remove();
+            // i--;
           }, 300);
         });
       });
     });
+
+    console.log(i);
   }
 });
