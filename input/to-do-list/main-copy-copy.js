@@ -54,7 +54,7 @@ plusBtn.addEventListener('click', function () {
     newTodo = todoTxt.value;
 
     // localStorage 추가
-    if (localStorage.getItem('todo') == null || localStorage.getItem('todo') == []) {
+    if (localStorage.getItem('todo') == null || localStorage.getItem('todo') == '[]') {
       todoLocal.push(newTodo);
       let localSet = JSON.stringify(todoLocal);
       localStorage.setItem('todo', localSet);
