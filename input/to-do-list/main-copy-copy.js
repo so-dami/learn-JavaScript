@@ -54,7 +54,7 @@ plusBtn.addEventListener('click', function () {
     newTodo = todoTxt.value;
 
     // localStorage 추가
-    if (localStorage.getItem('todo') == null) {
+    if (localStorage.getItem('todo') == null || localStorage.getItem('todo') == []) {
       todoLocal.push(newTodo);
       let localSet = JSON.stringify(todoLocal);
       localStorage.setItem('todo', localSet);
@@ -110,7 +110,7 @@ function listDelete() {
       });
 
       // 예
-      yesBtn.addEventListener('click', function (e) {
+      yesBtn.addEventListener('click', function () {
         // 모달창 닫기
         delChk.classList.remove('show-modal');
 
@@ -120,6 +120,8 @@ function listDelete() {
 
         local.splice(idx, 1);
         localStorage.setItem('todo', JSON.stringify(local));
+
+        console.log(idx);
 
         // 해당 li 삭제
         setTimeout(() => {
