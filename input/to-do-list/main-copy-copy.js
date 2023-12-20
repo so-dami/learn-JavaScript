@@ -23,8 +23,8 @@ if (localStorage.getItem('todo') !== null) {
     let hcode = `
       <li class="list-item flex">
         <div class="chk-box">
-          <input type="checkbox" name="chkbox${todoGet[i]}" id="chkbox${todoGet[i]}" value="${todoGet[i]}" />
-          <label class="chk-label" for="chkbox${todoGet[i]}">${todoGet[i]}</label>
+          <input type="checkbox" name="${todoGet[i]}" id="${todoGet[i]}" value="${todoGet[i]}" />
+          <label class="chk-label" for="${todoGet[i]}">${todoGet[i]}</label>
         </div>
         <div class="del-box">
           <button class="del-btn" type="button">
@@ -34,8 +34,18 @@ if (localStorage.getItem('todo') !== null) {
       </li>
     `;
     ul.innerHTML += hcode;
-    listDelete();
   }
+
+  // 새로고침 시 checked 유지
+  let test = JSON.parse(localStorage.getItem('checked'));
+
+  let arr = document.querySelectorAll('input[type="checkbox"]');
+
+  arr.forEach((a) => {
+    if (test.indexOf(a.name) !== -1) {
+      a.checked = true;
+    }
+  });
 }
 
 // plus button 클릭 시 - 할 일 추가
@@ -90,25 +100,59 @@ plusBtn.addEventListener('click', function () {
 
     ul.innerHTML += li;
     todoTxt.value = '';
+
+    // list 삭제
+    listDelete();
   }
-  listDelete();
+});
+
+// check 상태 localStorage에 저장
+let chkbox = document.querySelectorAll('input[type="checkbox"]');
+let chkLocal = [];
+let chkGet = JSON.parse(localStorage.getItem('checked'));
+
+chkbox.forEach((a, i) => {
+  a.addEventListener('click', function () {
+    if (a.checked == true) {
+      if (localStorage.getItem('checked') == null) {
+        chkLocal.push(a.name);
+        localStorage.setItem('checked', JSON.stringify(chkLocal));
+      } else {
+        chkGet.push(a.name);
+        localStorage.setItem('checked', JSON.stringify(chkGet));
+      }
+    } else {
+      let chkIdx = chkGet.indexOf(a.name);
+
+      if (localStorage.getItem('checked') !== null) {
+        chkGet.splice(chkIdx, 1);
+        localStorage.setItem('checked', JSON.stringify(chkGet));
+      }
+    }
+  });
 });
 
 // 삭제
 function listDelete() {
+  // '-' 버튼
   let delBtn = document.querySelectorAll('.del-btn');
+
+  // 삭제 여부 묻는 모달창
   let delChk = document.querySelector('#del-chk');
+
+  // '예' 버튼
   let yesBtn = document.querySelector('#yes-btn');
+
+  // '아니오' 버튼
   let noBtn = document.querySelector('#no-btn');
 
-  // delete button 클릭 시
-  delBtn.forEach((a) => {
-    a.addEventListener('click', function (e) {
-      // 삭제할 li
-      let delList = a.parentElement.parentElement;
+  // 삭제할 li
+  let delList = document.querySelectorAll('.list-item');
 
-      // 삭제할 input 값
-      let delTodo = a.parentElement.previousElementSibling.firstElementChild.value;
+  // delete button 클릭 시
+  delBtn.forEach((a, i) => {
+    a.addEventListener('click', function () {
+      // let delList = a.parentElement.parentElement;
 
       // 삭제 여부 물어보기
       delChk.classList.add('show-modal');
@@ -131,18 +175,18 @@ function listDelete() {
 
         // localStorage에서 해당 데이터 삭제
         let local = JSON.parse(localStorage.getItem('todo'));
-        let idx = local.indexOf(delTodo);
-        console.log(idx);
 
-        local.splice(idx, 1);
+        console.log(i);
+
+        local.splice(i, 1);
+
         console.log(local);
+
         localStorage.setItem('todo', JSON.stringify(local));
 
-
+        console.log(delList[i]);
         // 해당 li 삭제
-        setTimeout(() => {
-          delList.remove();
-        }, 300);
+        delList[i].remove();
       });
     });
   });
