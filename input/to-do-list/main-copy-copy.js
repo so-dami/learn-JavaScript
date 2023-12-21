@@ -15,16 +15,18 @@ let blankChk = document.querySelector('#blank-chk');
 // 공백 체크 모달창 닫기 버튼
 let closeBtn = document.querySelector('#close-btn');
 
-// checked 유지는 어떻게...?
 // 새로고침 후에도 데이터 유지 시키기
 if (localStorage.getItem('todo') !== null) {
   let todoGet = JSON.parse(localStorage.getItem('todo'));
+
   for (let i = 0; i < todoGet.length; i++) {
     let hcode = `
       <li class="list-item flex">
         <div class="chk-box">
-          <input type="checkbox" name="${todoGet[i]}" id="${todoGet[i]}" value="${todoGet[i]}" />
-          <label class="chk-label" for="${todoGet[i]}">${todoGet[i]}</label>
+          <input type="checkbox" name="${todoGet[i]['txt']}" id="${todoGet[i]['txt']}" value="${todoGet[i]['txt']}" ${
+      todoGet[i]['checked'] == true ? 'checked' : null
+    } />
+          <label class="chk-label" for="${todoGet[i]['txt']}">${todoGet[i]['txt']}</label>
         </div>
         <div class="del-box">
           <button class="del-btn" type="button">
@@ -34,19 +36,8 @@ if (localStorage.getItem('todo') !== null) {
       </li>
     `;
     ul.innerHTML += hcode;
-  }
-
-  // 새로고침 시 checked 유지
-  let test = JSON.parse(localStorage.getItem('checked'));
-
-  let arr = document.querySelectorAll('input[type="checkbox"]');
-
-  arr.forEach((a) => {
-    if (test.indexOf(a.name) !== -1) {
-      a.checked = true;
-    }
-  });
-}
+  } // for //
+} // if //
 
 // plus button 클릭 시 - 할 일 추가
 plusBtn.addEventListener('click', function () {
@@ -63,32 +54,31 @@ plusBtn.addEventListener('click', function () {
     blankChk.addEventListener('click', function () {
       blankChk.classList.remove('show-modal');
     });
-  }
+  } // if //
 
   // 공백 체크 - input 값이 공백이 아닐 때
   else {
     let todoLocal = [];
+    let localGet = JSON.parse(localStorage.getItem('todo'));
 
     // 오늘의 할 일 input 값 변수에 넣기
-    newTodo = todoTxt.value;
+    newTodo = { txt: todoTxt.value, checked: false };
 
     // localStorage 추가
     if (localStorage.getItem('todo') == null || localStorage.getItem('todo') == '[]') {
       todoLocal.push(newTodo);
       localStorage.setItem('todo', JSON.stringify(todoLocal));
     } else {
-      let localGet = JSON.parse(localStorage.getItem('todo'));
-
       localGet.push(newTodo);
       localStorage.setItem('todo', JSON.stringify(localGet));
-    }
+    } // else //
 
     // li 추가
     let li = `
       <li class="list-item flex">
         <div class="chk-box">
-          <input type="checkbox" name="${newTodo}" id="${newTodo}" value="${newTodo}" />
-          <label class="chk-label" for="${newTodo}">${newTodo}</label>
+          <input type="checkbox" name="${newTodo['txt']}" id="${newTodo['txt']}" value="${newTodo['txt']}" />
+          <label class="chk-label" for="${newTodo['txt']}">${newTodo['txt']}</label>
         </div>
         <div class="del-box">
           <button class="del-btn" type="button">
@@ -101,36 +91,20 @@ plusBtn.addEventListener('click', function () {
     ul.innerHTML += li;
     todoTxt.value = '';
 
-    // list 삭제
-    listDelete();
-  }
-});
-
-// check 상태 localStorage에 저장
-let chkbox = document.querySelectorAll('input[type="checkbox"]');
-let chkLocal = [];
-let chkGet = JSON.parse(localStorage.getItem('checked'));
-
-chkbox.forEach((a, i) => {
-  a.addEventListener('click', function () {
-    if (a.checked == true) {
-      if (localStorage.getItem('checked') == null) {
-        chkLocal.push(a.name);
-        localStorage.setItem('checked', JSON.stringify(chkLocal));
-      } else {
-        chkGet.push(a.name);
-        localStorage.setItem('checked', JSON.stringify(chkGet));
-      }
-    } else {
-      let chkIdx = chkGet.indexOf(a.name);
-
-      if (localStorage.getItem('checked') !== null) {
-        chkGet.splice(chkIdx, 1);
-        localStorage.setItem('checked', JSON.stringify(chkGet));
-      }
-    }
-  });
-});
+    // localStorage의 checked 값 변경하기
+    document.querySelectorAll('input[type="checkbox"]').forEach((a, i) => {
+      a.addEventListener('click', function () {
+        if (a.checked == true) {
+          localGet[i]['checked'] = true;
+          localStorage.setItem('todo', JSON.stringify(localGet));
+        } else {
+          localGet[i]['checked'] = false;
+          localStorage.setItem('todo', JSON.stringify(localGet));
+        } // else //
+      }); // click //
+    }); // forEach //
+  } // else //
+}); // plus-btn click //
 
 // 삭제
 function listDelete() {
