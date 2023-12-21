@@ -15,7 +15,7 @@ let blankChk = document.querySelector('#blank-chk');
 // 공백 체크 모달창 닫기 버튼
 let closeBtn = document.querySelector('#close-btn');
 
-// 새로고침 후에도 데이터 유지 시키기
+// 새로고침 후에도 데이터, checked 유지 시키기
 if (localStorage.getItem('todo') !== null) {
   let todoGet = JSON.parse(localStorage.getItem('todo'));
 
@@ -39,7 +39,7 @@ if (localStorage.getItem('todo') !== null) {
   } // for //
 } // if //
 
-// plus button 클릭 시 - 할 일 추가
+// plus button 클릭 시 - li 추가
 plusBtn.addEventListener('click', function () {
   // 공백 체크 - input 값이 공백일 때
   if (todoTxt.value == '') {
@@ -131,18 +131,19 @@ function listDelete() {
       // 삭제 여부 물어보기
       delChk.classList.add('show-modal');
 
-      // 아니오 - 모달창 닫기
+      // 아니오 클릭 시
       noBtn.addEventListener('click', function () {
         // 모달창 닫기
         delChk.classList.remove('show-modal');
       });
 
-      // 검정 배경 클릭 시 - 모달창 닫기
+      // 검정 배경 클릭 시
       delChk.addEventListener('click', function () {
+        // 모달창 닫기
         delChk.classList.remove('show-modal');
       });
 
-      // 예 - 삭제
+      // 예 클릭 시
       yesBtn.addEventListener('click', function () {
         // 모달창 닫기
         delChk.classList.remove('show-modal');
@@ -150,15 +151,11 @@ function listDelete() {
         // localStorage에서 해당 데이터 삭제
         let local = JSON.parse(localStorage.getItem('todo'));
 
-        console.log(i);
-
         local.splice(i, 1);
-
-        console.log(local);
-
         localStorage.setItem('todo', JSON.stringify(local));
 
         console.log(delList[i]);
+
         // 해당 li 삭제
         delList[i].remove();
       });
