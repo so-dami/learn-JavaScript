@@ -4,61 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Form</title>
-    <style>
-      input,
-      textarea {
-        box-sizing: border-box;
-      }
-      input[type='checkbox'] {
-        margin: 0;
-        padding: 0;
-      }
-      .form-black {
-        background-color: #000;
-        padding: 30px;
-      }
-      .form-white {
-        background-color: #fff;
-        padding: 30px;
-        width: 80%;
-        max-width: 600px;
-        margin: 0 auto;
-      }
-      .form-input {
-        width: 100%;
-        padding: 10px;
-        font-size: 15px;
-        border: 1px solid gray;
-        border-radius: 5px;
-      }
-      .w-100 {
-        width: 100%;
-      }
-      .w-50 {
-        width: 50%;
-      }
-      .form-flex {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        gap: 10px;
-      }
-      .pink-button {
-        padding: 5px 20px;
-        background-color: hotpink;
-        color: #fff;
-        border: none;
-        border-radius: 5px;
-        box-sizing: border-box;
-      }
-    </style>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div class="form-black">
       <div class="form-white">
         <form action="">
+          <h3>Contact us</h3>
           <div class="w-100">
-            <h3>Contact us</h3>
             <p>Your Email</p>
             <input class="form-input" id="email" type="email" placeholder="email@example.com" />
           </div>
